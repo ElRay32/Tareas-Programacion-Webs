@@ -12,4 +12,6 @@
 <a href="https://youtu.be/XcBnMZwUo9A?si=QtZdhAYrohbI8j_G" target="_blank">Video de youtube que recomiendo de ver</a>
 
 
+<p><a href="index.php">Volver a la página principal</a></p>
+
 <?php require_once 'Partes/foot.php'; ?>

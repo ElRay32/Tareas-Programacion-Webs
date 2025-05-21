@@ -41,5 +41,6 @@
         <button type="submit">Calcular</button>
     </div>
 
+    <p><a href="index.php">Volver a la página principal</a></p>
 
 <?php require_once 'Partes/foot.php'; ?>

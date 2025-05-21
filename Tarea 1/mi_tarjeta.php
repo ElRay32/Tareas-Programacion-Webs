@@ -30,4 +30,6 @@ require_once 'Partes/head.php'; ?>
 
 <h3><?= $mensaje; ?></h3>
 
+<p><a href="index.php">Volver a la página principal</a></p>
+
 <?php require_once 'Partes/foot.php'; ?>

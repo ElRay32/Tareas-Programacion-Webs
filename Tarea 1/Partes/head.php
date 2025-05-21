@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>uno</title>
+        <title>Programacion Webs: Tarea 1</title>
         <style>
             
             body{
                 font-family: arial, sans-serif;
-                background-color: white;
+                background-color: rgb(46, 103, 64);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 margin: 0;
                 padding: 0;
             }
@@ -63,7 +64,7 @@
 
         <div>
             <h1>Tarea 1</h1>
-            <p>uno dos</p>
+            <p>Desarrollado habilidades</p>
         </div>
 
         <div id="idmenu">
