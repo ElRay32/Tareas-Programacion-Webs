@@ -42,6 +42,4 @@
     </div>
 
 
-
-
 <?php require_once 'Partes/foot.php'; ?>
