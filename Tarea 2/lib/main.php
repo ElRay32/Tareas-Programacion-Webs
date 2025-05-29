@@ -1,4 +1,4 @@
 <?php
 require_once 'plantilla.php';
-$plantilla = plantilla::aplicar();
+require_once 'objetos.php';
 ?>

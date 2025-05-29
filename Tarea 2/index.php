@@ -1,34 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitio Web de Peliculas y series que visto</title>
-    <!-- Bootstrap CSS 5.3.0 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
-    <h1 class="mt-3">Lo que visto con el tiempo</h1>
-    <p>Listado de Peliculas y Series que son las mejores Peliculas</p>
+<?php
+require_once 'lib\plantilla.php';
+$plantilla = plantilla::aplicar();
+?>
+
+     <div class="text-end mt-3">
+        <a href="editar.php" class="btn btn-primary">Agregar Personaje</a>   
     </div>
-    <div class="text-end">
-        <a href="agregar_personaje.php" class="btn btn-primary">Agregar Personaje</a>
-    </div>
-    <div>
-        <table class="table">
+
+        <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Codigo</th>
-                    <th>Imagen</th>
-                    <th>Tipo</th>
-                    <th>Genero</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Pais</th>
-                    <th>Fecha de estreno</th>
-                    <th>Autor</th>
-                    <th>Acciones</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Pais</th>
+                    <th scope="col">Fecha de estreno</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +36,4 @@
                     <a href="editar.php?id=1" class="btn btn-warning">Editar</a>
                     <a href="detalle.php?id=1" class="btn btn-danger">Detalles</a>
             </tbody>
-    </div>
-</body>
-</html>
+   
