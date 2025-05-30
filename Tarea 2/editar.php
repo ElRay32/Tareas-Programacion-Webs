@@ -4,10 +4,21 @@ require_once 'lib\objetos.php';
 
 $obra = new Obra();
 
+if(isset($_GET['codigo'])){
+    $codigo = $_GET['codigo'];
+    $ruta = 'datos/' . $codigo . '.json';
+
+    if(file_exists(filename: $ruta)){
+        $json = file_get_contents(filename: $ruta);
+        $obra = json_decode(json: $json);
+    } 
+}
+
 if($_POST){
     $obra->codigo = $_POST['codigo'];
     $obra->foto_url = $_POST['foto_url'];
     $obra->tipo = $_POST['tipo'];
+    $obra->genero = $_POST['genero'];
     $obra->nombre = $_POST['nombre'];
     $obra->descripcion = $_POST['descripcion'];
     $obra->pais = $_POST['pais'];
@@ -60,6 +71,11 @@ if($_POST){
             }
             ?> 
         </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="genero" class="form-label">Género</label>
+        <input type="text" class="form-control" id="genero" name="genero" value="<?php echo $obra->genero; ?>" required>
     </div>
 
     <div class="mb-3">

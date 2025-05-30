@@ -48,8 +48,8 @@ class personaje{
     public $apellido;
     public $fecha_nacimiento;
     public $sexo;
+    public $actor;
     public $habilidades;
-    public $comida_favorita;
 }
 
 class datos{

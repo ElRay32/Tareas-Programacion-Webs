@@ -23,17 +23,38 @@ $plantilla = plantilla::aplicar();
                 </tr>
             </thead>
             <tbody>
-                <td>1</td>
-                <td><img src="https://via.placeholder.com/100" alt="Imagen de la pelicula"></td>
-                <td>Película</td>
-                <td>Acción</td>
-                <td>Avengers: Endgame</td>
-                <td>Los Vengadores deben enfrentarse a Thanos una vez más.</td>
-                <td>Estados Unidos</td>
-                <td>26 de abril de 2019</td>
-                <td>Anthony y Joe Russo</td>
-                <td>
-                    <a href="editar.php?id=1" class="btn btn-warning">Editar</a>
-                    <a href="detalle.php?id=1" class="btn btn-danger">Detalles</a>
-            </tbody>
+                <?php
+                     if(is_dir(filename: 'datos')){
+                        $archivos = scandir(directory: 'datos');
+
+                        foreach ($archivos as $archivo) {
+                            $ruta = 'datos/' . $archivo;
+                            if (is_file(filename: $ruta)) {
+                                    $json = file_get_contents(filename: $ruta);
+                                    $obra = json_decode(json: $json);
+                                    ?>
+                                    <tr>
+                                        <td><?= $obra->codigo; ?></td>
+                                        <td><img src="<?= $obra->foto_url ?>" alt="<?= $obra->nombre ?>" height="100"></td>
+                                        <td><?= $obra->tipo ?></td>
+                                        <td><?= $obra->genero ?></td>
+                                        <td><?= $obra->nombre ?></td>
+                                        <td><?= $obra->descripcion ?></td>
+                                        <td><?= $obra->pais ?></td>
+                                        <td><?= $obra->fecha_estreno ?></td>
+                                        <td><?= $obra->autor ?></td>
+
+                                        <td>
+                                            <a href="editar.php?codigo=<?php echo urlencode($obra->codigo); ?>" class="btn btn-warning">Editar</a>
+                                            <a href="personaje.php?codigo=<?php echo urlencode($obra->codigo); ?>" class="btn btn-success">Agregar</a>
+                                            <a href="detalle.php?codigo=<?php echo urlencode($obra->codigo); ?>" class="btn btn-danger">Detalles</a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                        }
+                ?>
+                </tbody>
+        </table>
    
