@@ -1,5 +1,5 @@
 <?php
-require_once 'lib\plantilla.php';
+require_once 'lib\main.php';
 $plantilla = plantilla::aplicar();
 ?>
 
@@ -15,6 +15,7 @@ $plantilla = plantilla::aplicar();
                     <th scope="col">Tipo</th>
                     <th scope="col">Genero</th>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Personajes</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Pais</th>
                     <th scope="col">Fecha de estreno</th>
@@ -39,6 +40,7 @@ $plantilla = plantilla::aplicar();
                                         <td><?= $obra->tipo ?></td>
                                         <td><?= $obra->genero ?></td>
                                         <td><?= $obra->nombre ?></td>
+                                        <td><?= count(value:$obra->personajes)?></td>
                                         <td><?= $obra->descripcion ?></td>
                                         <td><?= $obra->pais ?></td>
                                         <td><?= $obra->fecha_estreno ?></td>
@@ -46,7 +48,7 @@ $plantilla = plantilla::aplicar();
 
                                         <td>
                                             <a href="editar.php?codigo=<?php echo urlencode($obra->codigo); ?>" class="btn btn-warning">Editar</a>
-                                            <a href="personaje.php?codigo=<?php echo urlencode($obra->codigo); ?>" class="btn btn-success">Agregar</a>
+                                            <a href="personaje.php?codigo=<?php echo urlencode($obra->codigo); ?>" class="btn btn-success">Personajes</a>
                                             <a href="detalle.php?codigo=<?php echo urlencode($obra->codigo); ?>" class="btn btn-danger">Detalles</a>
                                         </td>
                                     </tr>

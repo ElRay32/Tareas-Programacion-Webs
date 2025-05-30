@@ -1,6 +1,5 @@
 <?php
-require_once 'lib\plantilla.php';
-require_once 'lib\objetos.php';
+require_once 'lib\main.php';
 
 $obra = new Obra();
 

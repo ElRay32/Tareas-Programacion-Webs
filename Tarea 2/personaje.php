@@ -1,6 +1,5 @@
 <?php
-require_once 'lib\plantilla.php';
-require_once 'lib\objetos.php';
+require_once 'lib\main.php';
 
 $obra = new Obra();
 
@@ -35,6 +34,13 @@ $plantilla = plantilla::aplicar();
 
 <div class="col-md-8">
     <h2>Personajes</h2>
+    <div class="alert alert-info">
+        <p>En esta sección puedes ver los personajes de la obra <strong><?= $obra->nombre ?></strong>.</p>
+        <p>Si deseas agregar un nuevo personaje, haz clic en el botón "Agregar Personaje".</p>
+    </div>
+    <div class="mt-3">
+        <a href="index.php" class="btn btn-secondary">Volver al listado</a>
+    </div>
     <div class="text-end mt-3">
         <a href="agregar_personaje.php?codigo=<?= $obra->codigo ?>" class="btn btn-primary">Agregar Personaje</a>
     </div>
