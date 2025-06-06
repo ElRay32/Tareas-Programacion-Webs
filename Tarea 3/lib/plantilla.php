@@ -12,6 +12,8 @@ class Plantilla {
 
     
     function __construct() {
+
+        $pagina_actual = (defined('pagina_actual') ? pagina_actual : "inicio");
     
     ?>
         <!DOCTYPE html>
@@ -32,16 +34,16 @@ class Plantilla {
             <div class="divmenu">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" href="./">Inicio</a>
+                        <a class="nav-link <?= $pagina_actual == 'inicio'?'active':'';?> " href="<?= base_url() ?>">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="personaje.php">Personajes</a>
+                        <a class="nav-link <?= $pagina_actual == 'personajes'?'active':'';?>" href="<?= base_url('modulos/personajes/lista_per.php'); ?>">Personajes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profesiones.php">Profesiones</a>
+                        <a class="nav-link <?= $pagina_actual == 'profesiones'?'active':'';?>" href="<?= base_url('modulos/profesiones/lista.php'); ?>">Profesiones</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="estadisticas.php">Estadisticas</a>
+                        <a class="nav-link <?= $pagina_actual == 'estadisticas'?'active':'';?>" href="<?= base_url('modulos/reportes/menu.php'); ?>">Estadisticas</a>
                     </li>
                 </ul>
             </div>
