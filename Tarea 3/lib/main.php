@@ -1,6 +1,7 @@
 <?php
 include_once 'plantilla.php';
 include_once 'modelo.php';
+include_once 'Dbx.php';
 
 function base_url($path = '') {
     

@@ -17,7 +17,7 @@ Salario mensual estimado en dólares ($USD)
 */
 
 class Personaje {
-    public $id;
+    public $idx = '';
     public $nombre;
     public $apellido;
     public $fecha_nacimiento;
@@ -40,10 +40,11 @@ class Personaje {
 }
 
 class Profesion {
-    public $codigo;
-    public $nombre;
-    public $categoria;
-    public $salario;
+    public $idx = '';
+    public $codigo = '';
+    public $nombre = '';
+    public $categoria = '';
+    public $salario = 0;
 
     public function __construct($data = []){
 

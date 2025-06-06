@@ -16,7 +16,7 @@ class Plantilla {
         $pagina_actual = (defined('pagina_actual') ? pagina_actual : "inicio");
     
     ?>
-        <!DOCTYPE html>
+    <!DOCTYPE html>
     <html lang="es">
         <head>
             <meta charset="UTF-8">

@@ -1,6 +1,10 @@
 <?php
 define("DATA_DIR", __DIR__ . "/datax/");
 
+if (!is_dir(DATA_DIR)) {
+    mkdir(DATA_DIR, 0777, true);
+}
+
  // Clase para gestionar la coleccion de datos en los archivos del directorio datax
  class Dbx{
 
@@ -28,9 +32,34 @@ define("DATA_DIR", __DIR__ . "/datax/");
             }
         }
 
+        return $data;
+
     }
     
+    public static function get($collection, $id){
+        $datapath = DATA_DIR . "/{$collection}/{$id}.dat";
 
+        if(!file_exists($datapath)){
+            return null;
+        }
+
+        $content = file_get_contents($datapath);
+        return unserialize($content);
+    }
+
+    public static function save($collection, $item){
+        $datapath = DATA_DIR . "/{$collection}";
+
+        if(!is_dir($datapath)){
+            mkdir($datapath, 0777, true);
+        }
+
+        $filename = (strlen($item->idx) > 4) ? $item->idx : uniqid();
+        $item->idx= $filename;
+        $filepath = $datapath . "/" . $filename . ".dat";
+        
+        file_put_contents($filepath, serialize($item));
+    }
 
 }
 
