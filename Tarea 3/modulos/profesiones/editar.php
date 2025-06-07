@@ -2,9 +2,6 @@
 
 include_once '../../lib/main.php';
 define("pagina_actual", "profesiones");
-plantilla::aplicar();
-
-
 
 if($_POST){
     $profesion = new Profesion($_POST);
@@ -13,7 +10,7 @@ if($_POST){
     header("Location: " . base_url("modulos/profesiones/lista.php"));
     exit;
 }
-
+plantilla::aplicar();
 
 if(isset($_GET['codigo'])){
     $tmp = Dbx::get("profesiones", $_GET['codigo']);
@@ -30,7 +27,7 @@ if(isset($_GET['codigo'])){
 <form method="post" action="<?= $_SERVER['REQUEST_URI'] ?>">
     <div class="mb-3">
         <label for="codigo" class="form-label">Código</label>
-        <input type="text" class="form-control" id="idx" name="idx" value="<?= htmlspecialchars($profesion->idx); ?>" readonly>
+        <input type="text" class="form-control" id="idx" name="idx" value="<?= htmlspecialchars($profesion->    idx); ?>" readonly>
 
     <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>

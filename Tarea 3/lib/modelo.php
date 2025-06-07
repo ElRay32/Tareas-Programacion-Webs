@@ -18,12 +18,26 @@ Salario mensual estimado en dólares ($USD)
 
 class Personaje {
     public $idx = '';
-    public $nombre;
-    public $apellido;
-    public $fecha_nacimiento;
-    public $foto;
-    public $profesion;
-    public $nivel_experiencia;
+    public $identificacion = '';
+    public $nombre = '';
+    public $apellido = '';
+    public $fecha_nacimiento = '';
+    public $foto = '';
+    public $profesion = '';
+    public $nivel_experiencia = 0;
+
+    public function edad() {
+        if (empty($this->fecha_nacimiento)) {
+            return 0;
+        }
+        $fecha_nacimiento = strtotime($this->fecha_nacimiento);
+        $fecha_actuarl = time();
+        $edad = date('Y', $fecha_actuarl) - date('Y', $fecha_nacimiento);
+        if (date('md', $fecha_actuarl) < date('md', $fecha_nacimiento)) {
+            $edad--;
+        }
+        return $edad;
+    }
 
    public function __construct($data = []){
 
@@ -58,6 +72,11 @@ class Profesion {
             }
         }
     }
+
+    public function __toString() {
+        return "{$this->nombre} - Salario: {$this->salario}";
+    }
+
 }
 
 ?>
