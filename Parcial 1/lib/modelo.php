@@ -32,4 +32,16 @@ class Visita{
     }
 }
 
+class motivos{
+
+    public static function tipos_de_motivos() : array {
+        return array(
+            'limpieza' => 'Limpieza',
+            'caries' => 'Caries',
+            'dolor' => 'Dolor',
+            'chequeo' => 'Chequeo'
+        );
+    }
+}
+
 ?>

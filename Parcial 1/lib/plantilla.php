@@ -39,7 +39,7 @@ class Plantilla {
                                 <a class="nav-link" <?= $pagina_actual == 'inicio'?'active':'';?> href="<?= base_url() ?>">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" <?= $pagina_actual == 'visitas'?'active':'';?> href="<?= base_url() ?>">Listado de Visitas</a>
+                                <a class="nav-link" <?= $pagina_actual == 'visitas'?'active':'';?> href="<?= base_url("modulo/visitas/lista_visitas.php") ?>">Listado de Visitas</a>
                             </li>
                         </ul>
                     </div>
