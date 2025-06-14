@@ -6,7 +6,7 @@ Plantilla::aplicar();
 // Raymel Enrique Guerrero Reynoso 2023-1677
 
 
-
+$visitas = Dbx::list("visitas");
 
 ?>
 
@@ -26,4 +26,20 @@ Plantilla::aplicar();
             <th>Acciones</th>
         </tr>
     </thead>
+    <tbody>
+        <?php foreach ($visitas as $visita): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($visita->nombre)?></td>
+            <td><?php echo htmlspecialchars($visita->apellido)?></td>
+            <td><?php echo htmlspecialchars($visita->cedula)?></td>
+            <td><?php echo htmlspecialchars($visita->edad)?></td>
+            <td><?php echo htmlspecialchars($visita->motivo)?></td>
+            <td><?php echo htmlspecialchars($visita->fecha_visita)?></td>
+            <td>
+                <a href="<?= base_url("modulo/Visitas/visitas.php?codigo={$visita->idx}");?>" class="btn btn-primary">Editar</a>
+                <a href="<?= base_url("modulo/Visitas/eliminar_visitas.php?codigo={$visita->idx}");?>" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar esta visita?');">Eliminar</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
 </table>

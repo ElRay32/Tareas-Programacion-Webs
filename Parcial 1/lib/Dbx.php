@@ -35,11 +35,12 @@ class Dbx{
     }
 
     public static function get($collection, $id){
-        $datapath = DATA_DIR . "/{$collection}";
+        $datapath = DATA_DIR . "/{$collection}/{$id}.dat";
 
-        if (!is_dir($datapath)){
-        mkdir($datapath, 0777, true);
+        if (!file_exists($datapath)){
+            return null;
         }
+        
         
         $content = file_get_contents($datapath);
         return unserialize($content);
