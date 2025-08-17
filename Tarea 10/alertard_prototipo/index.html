@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Incidencias — Prototipo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="assets/favicon.svg" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <img src="assets/favicon.svg" alt="Logo" width="28" height="28" />
+      <h1>Registro de Incidencias <span class="badge">Prototipo</span></h1>
+    </div>
+    <nav class="top-actions">
+      <button id="btnTheme" class="btn secondary" title="Cambiar tema">🌓</button>
+      <button id="btnLogout" class="btn danger outline">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <aside class="sidebar">
+    <nav class="nav">
+      <a data-route="#/dashboard" class="nav-link active">🏠 Inicio</a>
+      <a data-route="#/incidents" class="nav-link">🚨 Incidencias</a>
+      <a data-route="#/provinces" class="nav-link">🗺️ Provincias</a>
+      <a data-route="#/municipalities" class="nav-link">🏙️ Municipios</a>
+      <a data-route="#/neighborhoods" class="nav-link">🏘️ Barrios</a>
+      <a data-route="#/types" class="nav-link">🏷️ Tipos</a>
+      <a data-route="#/profile" class="nav-link">👤 Perfil</a>
+    </nav>
+    <footer class="sidebar-footer">
+      <small>Sin backend • v0.1</small>
+    </footer>
+  </aside>
+
+  <main class="content">
+    <!-- LOGIN -->
+    <section id="view-login" class="view centered hidden">
+      <div class="card max-420">
+        <h2>Iniciar sesión</h2>
+        <p class="muted">Accede al panel para gestionar incidencias.</p>
+        <form id="formLogin" novalidate>
+          <div class="field">
+            <label for="loginEmail">Correo</label>
+            <input id="loginEmail" type="email" required placeholder="tu@email.com" />
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <label for="loginPassword">Contraseña</label>
+            <input id="loginPassword" type="password" minlength="4" required placeholder="••••••" />
+            <small class="error"></small>
+          </div>
+          <button class="btn primary w-100" type="submit">Entrar</button>
+        </form>
+        <p class="muted center mt-16">¿No tienes cuenta?
+          <a href="#/register" data-route>Regístrate</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="view-register" class="view centered hidden">
+      <div class="card max-420">
+        <h2>Crear cuenta</h2>
+        <form id="formRegister" novalidate>
+          <div class="field">
+            <label for="regName">Nombre</label>
+            <input id="regName" type="text" required placeholder="Tu nombre" />
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <label for="regEmail">Correo</label>
+            <input id="regEmail" type="email" required placeholder="tu@email.com" />
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <label for="regPassword">Contraseña</label>
+            <input id="regPassword" type="password" minlength="4" required />
+            <small class="error"></small>
+          </div>
+          <button class="btn primary w-100" type="submit">Registrarme</button>
+        </form>
+        <p class="muted center mt-16">
+          ¿Ya tienes cuenta? <a href="#/login" data-route>Inicia sesión</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="view-dashboard" class="view hidden">
+      <div class="page-head">
+        <div>
+          <h2>Panel</h2>
+          <p class="muted">Resumen general del sistema</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="#/incidents" data-route>Registrar Incidencia</a>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card kpi">
+          <div class="kpi-value" id="kpiIncidents">0</div>
+          <div class="kpi-label">Incidencias</div>
+        </div>
+        <div class="card kpi">
+          <div class="kpi-value" id="kpiTypes">0</div>
+          <div class="kpi-label">Tipos</div>
+        </div>
+        <div class="card kpi">
+          <div class="kpi-value" id="kpiLocations">0</div>
+          <div class="kpi-label">Ubicaciones</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Últimas incidencias</h3>
+        <div class="table-scroll">
+          <table class="table" id="tableLatest">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Título</th>
+                <th>Tipo(s)</th>
+                <th>Provincia</th>
+                <th>Municipio</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- INCIDENTS -->
+    <section id="view-incidents" class="view hidden">
+      <div class="page-head">
+        <div>
+          <h2>Incidencias</h2>
+          <p class="muted">Listado y registro</p>
+        </div>
+        <div class="actions">
+          <button id="btnNewIncident" class="btn primary">+ Nueva</button>
+        </div>
+      </div>
+
+      <div class="card mb-16">
+        <div class="filters grid-4">
+          <div class="field">
+            <label>Provincia</label>
+            <select id="fltProvince"></select>
+          </div>
+          <div class="field">
+            <label>Municipio</label>
+            <select id="fltMunicipality"></select>
+          </div>
+          <div class="field">
+            <label>Tipo</label>
+            <select id="fltType"></select>
+          </div>
+          <div class="field">
+            <label>Buscar</label>
+            <input id="fltSearch" type="search" placeholder="Título o descripción" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-scroll">
+          <table class="table" id="tableIncidents">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Título</th>
+                <th>Tipo(s)</th>
+                <th>Provincia</th>
+                <th>Municipio</th>
+                <th>Muertos</th>
+                <th>Heridos</th>
+                <th>Pérdida (RD$)</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROVINCES -->
+    <section id="view-provinces" class="view hidden">
+      <div class="page-head">
+        <div>
+          <h2>Provincias</h2>
+          <p class="muted">Administración</p>
+        </div>
+        <div class="actions">
+          <button id="btnNewProvince" class="btn primary">+ Nueva</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-scroll">
+          <table class="table" id="tableProvinces">
+            <thead><tr><th>Nombre</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MUNICIPALITIES -->
+    <section id="view-municipalities" class="view hidden">
+      <div class="page-head">
+        <div>
+          <h2>Municipios</h2>
+          <p class="muted">Asociados a Provincias</p>
+        </div>
+        <div class="actions">
+          <button id="btnNewMunicipality" class="btn primary">+ Nuevo</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="filters grid-3">
+          <div class="field">
+            <label>Provincia</label>
+            <select id="selProvinceForMunicipio"></select>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table class="table" id="tableMunicipalities">
+            <thead><tr><th>Municipio</th><th>Provincia</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEIGHBORHOODS -->
+    <section id="view-neighborhoods" class="view hidden">
+      <div class="page-head">
+        <div>
+          <h2>Barrios</h2>
+          <p class="muted">Asociados a Municipios</p>
+        </div>
+        <div class="actions">
+          <button id="btnNewNeighborhood" class="btn primary">+ Nuevo</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="filters grid-3">
+          <div class="field">
+            <label>Provincia</label>
+            <select id="selProvinceForBarrio"></select>
+          </div>
+          <div class="field">
+            <label>Municipio</label>
+            <select id="selMunicipioForBarrio"></select>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table class="table" id="tableNeighborhoods">
+            <thead><tr><th>Barrio</th><th>Municipio</th><th>Provincia</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPES -->
+    <section id="view-types" class="view hidden">
+      <div class="page-head">
+        <div>
+          <h2>Tipos de Incidencias</h2>
+          <p class="muted">Gestiona la taxonomía</p>
+        </div>
+        <div class="actions">
+          <button id="btnNewType" class="btn primary">+ Nuevo</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-scroll">
+          <table class="table" id="tableTypes">
+            <thead><tr><th>Tipo</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="view-profile" class="view hidden">
+      <div class="page-head">
+        <div>
+          <h2>Perfil</h2>
+          <p class="muted">Datos del usuario</p>
+        </div>
+      </div>
+      <div class="card max-640">
+        <form id="formProfile">
+          <div class="grid-2">
+            <div class="field">
+              <label>Nombre</label>
+              <input id="profileName" type="text" required />
+              <small class="error"></small>
+            </div>
+            <div class="field">
+              <label>Correo</label>
+              <input id="profileEmail" type="email" required />
+              <small class="error"></small>
+            </div>
+          </div>
+          <button class="btn primary" type="submit">Guardar</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODALS -->
+  <dialog id="dlgIncident" class="modal">
+    <form id="formIncident" method="dialog" class="modal-body" novalidate>
+      <header class="modal-head">
+        <h3 id="incidentTitle">Nueva Incidencia</h3>
+        <button type="button" class="icon-btn" data-close>✖</button>
+      </header>
+
+      <div class="grid-3">
+        <div class="field">
+          <label>Fecha de ocurrencia</label>
+          <input id="incDate" type="date" required />
+          <small class="error"></small>
+        </div>
+        <div class="field">
+          <label>Título</label>
+          <input id="incTitle" type="text" maxlength="80" required placeholder="Breve resumen" />
+          <small class="error"></small>
+        </div>
+        <div class="field">
+          <label>Tipo(s)</label>
+          <select id="incTypes" multiple size="3" required></select>
+          <small class="error"></small>
+        </div>
+        <div class="field">
+          <label>Descripción</label>
+          <textarea id="incDesc" rows="3" maxlength="500" placeholder="Descripción del hecho"></textarea>
+        </div>
+        <div class="field">
+          <label>Provincia</label>
+          <select id="incProvince" required></select>
+          <small class="error"></small>
+        </div>
+        <div class="field">
+          <label>Municipio</label>
+          <select id="incMunicipality" required></select>
+          <small class="error"></small>
+        </div>
+        <div class="field">
+          <label>Barrio</label>
+          <select id="incNeighborhood" required></select>
+          <small class="error"></small>
+        </div>
+        <div class="field">
+          <label>Coordenadas</label>
+          <div class="grid-2">
+            <input id="incLat" type="number" step="any" placeholder="Latitud" />
+            <input id="incLng" type="number" step="any" placeholder="Longitud" />
+          </div>
+        </div>
+        <div class="field grid-3-compact">
+          <div class="field">
+            <label>Muertos</label>
+            <input id="incDead" type="number" min="0" step="1" value="0" />
+          </div>
+          <div class="field">
+            <label>Heridos</label>
+            <input id="incInjured" type="number" min="0" step="1" value="0" />
+          </div>
+          <div class="field">
+            <label>Pérdida en RD$</label>
+            <input id="incLoss" type="number" min="0" step="1" placeholder="0" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Enlace a redes sociales</label>
+          <input id="incLink" type="url" placeholder="https://..." />
+        </div>
+        <div class="field">
+          <label>Foto del hecho</label>
+          <input id="incPhoto" type="file" accept="image/*" />
+          <div class="thumb" id="incPhotoPreview" aria-label="Vista previa"></div>
+        </div>
+      </div>
+
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close>Cancelar</button>
+        <button class="btn primary" id="btnSaveIncident" value="ok">Guardar</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog id="dlgSimple" class="modal">
+    <form method="dialog" class="modal-body">
+      <header class="modal-head">
+        <h3 id="dlgSimpleTitle">Editar</h3>
+        <button type="button" class="icon-btn" data-close>✖</button>
+      </header>
+      <div class="field">
+        <label id="dlgLabel" for="dlgInput">Nombre</label>
+        <input id="dlgInput" type="text" required />
+        <small class="error"></small>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close>Cancelar</button>
+        <button class="btn primary" id="dlgOk" value="ok">Guardar</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div id="toaster" class="toaster"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
